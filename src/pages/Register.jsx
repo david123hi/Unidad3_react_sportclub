@@ -1,13 +1,14 @@
 import { useState } from "react"
-import { loginUser } from "../services/authService"
+import { registerUser } from "../services/authService"
 
-function Login() {
+function Register() {
+  const [nombre, setNombre] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const result = await loginUser({ email, password })
+    const result = await registerUser({ nombre, email, password })
     console.log(result)
   }
 
@@ -15,8 +16,18 @@ function Login() {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-4">
-          <h2 className="mb-4 text-center">Login SportClub</h2>
+          <h2 className="mb-4 text-center">Registro SportClub</h2>
           <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Nombre</label>
+              <input
+                type="text"
+                className="form-control"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                placeholder="Tu nombre"
+              />
+            </div>
             <div className="mb-3">
               <label className="form-label">Email</label>
               <input
@@ -37,12 +48,12 @@ function Login() {
                 placeholder="Tu contraseña"
               />
             </div>
-            <button type="submit" className="btn btn-primary w-100">
-              Iniciar Sesión
+            <button type="submit" className="btn btn-success w-100">
+              Registrarse
             </button>
           </form>
           <p className="mt-3 text-center">
-            ¿No tienes cuenta? <a href="/register">Regístrate</a>
+            ¿Ya tienes cuenta? <a href="/login">Inicia sesión</a>
           </p>
         </div>
       </div>
@@ -50,4 +61,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Register
